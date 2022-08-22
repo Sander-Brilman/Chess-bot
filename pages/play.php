@@ -107,7 +107,7 @@ $css_vars 	= '
                     <i class="fa-duotone fa-user"></i>
                     <div>
 						<span><?= $_COOKIE['name'] ?></span>
-						<span>(you)</span>
+						<span>(You)</span>
 					</div>
 				</div>
 

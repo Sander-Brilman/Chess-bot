@@ -123,9 +123,9 @@ async function move(from, to) {
 			}
 
 			if (botMove.status == 'checkmate') {
-				showEndScreen(`${botMove.winner} heeft gewonnen`);
+				showEndScreen(`${botMove.winner} won`);
 			} else if (botMove.status == 'stalemate') {
-				showEndScreen(`Gelijkspel!`);
+				showEndScreen(`Draw`);
 			} else {
 				makeBoardInteractive();
 			}
