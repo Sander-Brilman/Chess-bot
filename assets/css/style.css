@@ -1,0 +1,31 @@
+@keyframes flyFromAbove {
+	0%   {top: -500px;}
+	100% {top: 200px;}
+}
+
+@font-face {
+	font-family: "font-normal";
+	src: url(../../../../salma-pro-medium-narrow.medium.otf);
+}
+
+:root {
+	--body-background: 	 rgb(33, 33, 33);
+	--background-header: rgb(44, 44, 44);
+	--background-menu: 	 rgb(55, 55, 55);
+	--light-grey:		 rgb(105, 105, 105);
+	--header-text-color: rgb(255, 255, 255);
+	--text-color:		 rgb(160 160 160);
+	--theme-color:		 rgb(0, 179, 205);
+    --difficulty-gradiant: linear-gradient(90deg, #33c131, yellow, rgb(255, 0, 0));
+}
+
+body,
+html {
+	background-color: var(--body-background);
+	height: 100%;
+	width: 100%;
+	font-family: font-normal;
+	margin: 0px;
+	padding: 0px;
+	color: var(--text-color);
+}

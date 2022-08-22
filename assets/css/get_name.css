@@ -1,0 +1,100 @@
+@keyframes appear {
+    0% {
+        color: rgba(0, 0, 0, 0);
+        filter: blur(3px);
+    }
+    30% {
+        filter: blur(1px);
+    }
+    100% {
+        filter: blur(0px);
+        color: var(--header-text-color);
+    }
+}
+
+@keyframes appear_text {
+    0% {
+        color: rgba(0, 0, 0, 0);
+        filter: blur(3px);
+    }
+    30% {
+        filter: blur(1px);
+    }
+    100% {
+        filter: blur(0px);
+        color: var(--text-color);
+    }
+}
+
+@keyframes appear_input {
+    0% {
+        color: rgba(0, 0, 0, 0);
+        filter: blur(3px);
+        border-color: rgba(0, 0, 0, 0);
+    }
+    30% {
+        filter: blur(1px);
+    }
+    100% {
+        filter: blur(0px);
+        color: var(--text-color);
+        border-color: var(--text-color);
+    }
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+label > p {
+    font-size: 25px;
+    color: rgba(0, 0, 0, 0);
+    animation: appear_text 1.5s ease-in-out 3.5s 1 normal forwards;
+    text-align: center;
+}
+
+h1 {
+    color: rgba(0, 0, 0, 0);
+    font-size: 40px;
+    display: block;
+    text-align: center;
+    animation: appear 1.5s ease-in 1s 1 normal forwards;
+}
+
+input {
+    outline: none;
+    border: none;
+    background: none;
+    color: rgba(0, 0, 0, 0);
+    font-size: 20px;
+    margin: 40px;
+    margin-right: 10px;
+    border-bottom: dashed rgba(0, 0, 0, 0) 2px;
+    display: inline;
+    width: 200px;
+    animation: appear_input 1.5s ease-in 5.5s 1 normal forwards;
+}
+
+button {
+    display: inline;
+    background: none;
+    outline: none;
+    border: none;
+    color: rgba(0, 0, 0, 0);
+    font-size: 25px;
+    padding: 0px;
+    margin: 0px;
+    margin-left: -35px;
+    animation: appear_input 1.5s ease-in 5s 1 normal forwards;
+}
