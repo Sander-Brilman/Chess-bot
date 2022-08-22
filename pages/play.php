@@ -63,7 +63,7 @@ $css_vars 	= '
 		<a href="http://schaken.sanderbrilman.nl/index.php?version-select=true"><i class="fa-duotone fa-chevron-left"></i> Versions</a>
 		<h1>Chess</h1>
         <!-- this is here to make sure the width of the text is the same on both sides -->
-		<a href="http://schaken.sanderbrilman.nl/index.php?version-select=true">Github repo <i class="fa-duotone fa-chevron-right"></i></a>
+		<a target="_blank" href="https://github.com/Sander-Brilman/Chess-bot-english">Github repo <i class="fa-duotone fa-chevron-right"></i></a>
 	</header>
 	<div class="content">
 		<div class="game-container">

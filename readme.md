@@ -2,7 +2,9 @@
 
 #### To play [click here]()
 
-I made this project for fun wondering if i could make a chess bot from scratch not knowing a damn thing about how chess bots work.
+I made this project for fun wondering if i could make a chess bot from scratch not knowing a damn thing about how chess bots work.<br>
+
+To view the code and see how it works the `assets/php/functions.php` file is the place to be. Almost all chess bot code is written & divided in functions.
 
 ## What i used
 

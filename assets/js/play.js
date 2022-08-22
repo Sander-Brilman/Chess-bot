@@ -1,5 +1,3 @@
-const l = console.log;
-
 // make a object containing coordinates from a string
 function makeCoordinatesObject(coordinatesSring) {
 	if (typeof coordinatesSring == "string") { 

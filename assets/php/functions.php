@@ -913,7 +913,7 @@ function calculate_move(array $board, string $team_turn, int $difficulty = 1000)
     $message        = '';
 
 	if ($choice <= $difficulty) {
-		$movement = reqursive_calculation($board, $team_turn, 0, $limit);
+		$movement = recursive_calculation($board, $team_turn, 0, $limit);
         $message  = 'best_movement';
 	} else {
 
@@ -965,16 +965,16 @@ function calculate_move(array $board, string $team_turn, int $difficulty = 1000)
 	return $movement;
 }
 
-function reqursive_calculation(array $board, string $team_turn, int $current, int $limit)
+function recursive_calculation(array $board, string $team_turn, int $current, int $limit)
 {
 	/**
 	 * Calculate the best movement for a certain situation using the score from the board_score function
-	 * Could be used to calculate result score of movements reqursively 
+	 * Could be used to calculate result score of movements recursively 
 	 * 
 	 * @param array the board array
 	 * @param string the team that can move
-	 * @param int the current counter of reqursiveness
-	 * @param int the limit the function can reqursive calculate moves
+	 * @param int the current counter of recursiveness
+	 * @param int the limit the function can recursive calculate moves
 	 * 
 	 * @return array array with both the advised move and the score of that move
 	*/
@@ -1013,10 +1013,10 @@ function reqursive_calculation(array $board, string $team_turn, int $current, in
 		$score		= board_score($board, $team_turn, $team_turn);
 
 		/**
-		 * code for calculating the end result score of the movements reqursively, currently not in use.
+		 * code for calculating the end result score of the movements recursively, currently not in use.
 		 * 
 		 *	if ($current < $limit) {
-		 *		$final_move = reqursive_calculation($new_board, $team_turn, $current + 1, $limit);
+		 *		$final_move = recursive_calculation($new_board, $team_turn, $current + 1, $limit);
 		 *	} else {
 		 *		$final_move = best_movements($new_board, $team_turn, 1)[0];
 		 *	}
@@ -1024,7 +1024,7 @@ function reqursive_calculation(array $board, string $team_turn, int $current, in
 
         
 		// if ($current < $limit) {
-		//     $final_move = reqursive_calculation($new_board, $team_turn, $current + 1, $limit);
+		//     $final_move = recursive_calculation($new_board, $team_turn, $current + 1, $limit);
 		// } else {
 		//     $final_move = best_movements($new_board, $team_turn, 1)[0];
 		// }
