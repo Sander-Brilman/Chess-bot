@@ -44,10 +44,6 @@ function get_page_info(array $url_array = []): array
 
 	// insert your pages here.
 	switch ($url_array[0]) {
-		case '':
-			$php[] = 'home';
-			break;
-
         case 'welcome':
             $php[] = 'get_name';
             $js[] = 'get_name';
@@ -62,11 +58,13 @@ function get_page_info(array $url_array = []): array
             $title = generate_title('Play');
             break;
 
+		case '':
         case 'new-game':
             $php[] = 'new_game';
             $js[] = 'new_game';
             $css[] = 'new_game';
             $title = generate_title('New game');
+            $canonical_url = generate_canonical_url('new-game');
             break;
 
 		default:
