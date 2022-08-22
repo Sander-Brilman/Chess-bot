@@ -35,3 +35,6 @@ All the previous verison use pure vanilla js only. To view the code you can use 
 
 You can view the previous versions [here](http://schaken.sanderbrilman.nl/index.php?version-select=true) (dutch only sorry)
 
+## **Code design**
+
+I designed the bot in a special way where its easy to adjust the way the bot rates states of the board. This can be found in the `board_score` function.
