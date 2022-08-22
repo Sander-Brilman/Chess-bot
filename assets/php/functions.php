@@ -581,38 +581,6 @@ function create_board() {
 	if ($debug) {
 
         // custom start senario for debugging purposes
-        place_piece($board,'0-0', 'tower', 'top', true);
-        place_piece($board,'0-1', 'pawn', 'top', true);
-        place_piece($board,'0-5', 'bishop', 'bottom', true);
-        place_piece($board,'0-6', 'pawn', 'bottom', true);
-        place_piece($board,'0-7', 'tower', 'bottom', true);
-        place_piece($board,'1-1', 'pawn', 'top', true);
-        place_piece($board,'1-3', 'pawn', 'bottom', true);
-        place_piece($board,'1-7', 'horse', 'bottom', true);
-        place_piece($board,'2-0', 'bishop', 'top', true);
-        place_piece($board,'2-1', 'pawn', 'top', true);
-        place_piece($board,'2-4', 'pawn', 'bottom', true);
-        place_piece($board,'3-0', 'king', 'top', true);
-        place_piece($board,'3-1', 'pawn', 'top', true);
-        place_piece($board,'3-4', 'horse', 'top', true);
-        place_piece($board,'3-5', 'pawn', 'bottom', true);
-        place_piece($board,'3-7', 'king', 'bottom', true);
-        place_piece($board,'4-2', 'pawn', 'top', true);
-        place_piece($board,'4-3', 'queen', 'top', true);
-        place_piece($board,'4-4', 'pawn', 'bottom', true);
-        place_piece($board,'4-5', 'queen', 'bottom', true);
-        place_piece($board,'5-1', 'pawn', 'top', true);
-        place_piece($board,'5-2', 'horse', 'top', true);
-        place_piece($board,'5-5', 'pawn', 'bottom', true);
-        place_piece($board,'5-7', 'bishop', 'bottom', true);
-        place_piece($board,'6-3', 'pawn', 'top', true);
-        place_piece($board,'6-4', 'pawn', 'bottom', true);
-        place_piece($board,'6-7', 'horse', 'bottom', true);
-        place_piece($board,'7-0', 'tower', 'top', true);
-        place_piece($board,'7-1', 'pawn', 'top', true);
-        place_piece($board,'7-2', 'bishop', 'top', true);
-        place_piece($board,'7-6', 'pawn', 'bottom', true);
-        place_piece($board,'7-7', 'tower', 'bottom', true);
 
 	} else {
 		foreach ($teams as $team => $y_array) {
