@@ -15,10 +15,22 @@ The languages i used are:
 - Jquery (for live updating)
 - HTML & CSS (for building the website itself)
 
-I used my own [php website template](https://github.com/Sander-Brilman/php-website-template) to take care of the basics of the websites
+I used my self made [php website template](https://github.com/Sander-Brilman/php-website-template) to take care of the basics of the websites
 
 
 For the icons i used FontAwsome
+
+## How to setup.
+
+To run this project use a webserver or a localhost like XAMMP.<br>
+Once you have done that you need to change the `config.php` file.
+
+inside the `config.php` file there is a variable called `$site_folder` on line 2. Set this value to the folder you setup the project in.<br>
+
+For example if you have a localhost setup and the url is `localhost/chess-bot-website/` set the variable to `/chess-bot-website/`.<br>
+```php
+$site_folder = '/chess-bot-website/';
+```
 
 
 ## Short history
