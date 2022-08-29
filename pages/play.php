@@ -151,7 +151,7 @@ if (!$_SESSION['game_data']['begins']) {
         'castling' => check_castling($board, $move['from'], $move['to']),
     ];
 
-    move_piece($board, $move['from'], $move['to']);
+    move_piece($_SESSION['game_data']['board'], $move['from'], $move['to']);
     ?>
     <script>
         setTimeout(() => {

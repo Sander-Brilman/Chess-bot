@@ -1,7 +1,12 @@
 <?php
 /**
  * A collection of all function declarations
+ * 
+ * Dear person trying to understand this code: Good luck.
+ * 
  */
+
+
 function url(string $path_from_root = ''): string
 {
     /**
