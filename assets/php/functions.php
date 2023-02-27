@@ -1,11 +1,9 @@
 <?php
 /**
  * A collection of all function declarations
- * 
- * Dear person trying to understand this code: Good luck.
- * 
  */
 
+define('BR', '<br>');
 
 function url(string $path_from_root = ''): string
 {
@@ -586,6 +584,22 @@ function create_board() {
 	if ($debug) {
 
         // custom start senario for debugging purposes
+        place_piece($board, '0-0', 'tower', 'top', true);
+        place_piece($board, '0-1', 'pawn', 'top', true);
+        place_piece($board, '1-2', 'pawn', 'top', true);
+        place_piece($board, '1-5', 'pawn', 'bottom', true);
+        place_piece($board, '2-0', 'king', 'top', true);
+        place_piece($board, '2-4', 'horse', 'bottom', true);
+        place_piece($board, '3-7', 'tower', 'bottom', true);
+        place_piece($board, '4-1', 'pawn', 'top', true);
+        place_piece($board, '4-4', 'pawn', 'top', true);
+        place_piece($board, '4-6', 'king', 'bottom', true);
+        place_piece($board, '5-1', 'horse', 'bottom', true);
+        place_piece($board, '6-0', 'horse', 'top', true);
+        place_piece($board, '6-4', 'pawn', 'bottom', true);
+        place_piece($board, '6-6', 'bishop', 'top', true);
+        place_piece($board, '7-2', 'pawn', 'top', true);
+        place_piece($board, '7-4', 'pawn', 'bottom', true);
 
 	} else {
 		foreach ($teams as $team => $y_array) {
@@ -956,15 +970,11 @@ function recursive_calculation(array $board, string $team_turn, int $current, in
 	$best_moves 		= best_movements($board, $team_turn, $best_moves_length);
 	$return_move		= null;
 	
+
 	// 
 	// calulate enemy reaction to the moves
 	//
 	foreach ($best_moves as $move_data) {
-
-        // echo BR;
-        // echo BR;
-        // echo BR;
-        // dump('score for '.from_to($move_data['move']).': '.$move_data['score']);
 
 		$enemy_move	= best_movements($move_data['board'], $opposite_team, 2);
 
@@ -972,8 +982,6 @@ function recursive_calculation(array $board, string $team_turn, int $current, in
 			$return_move = ['score' => 999999, 'move' => $move_data['move'], 'status' => 'checkmate'];
 			break;
 		}
-
-
 		
 		$enemy_move = $enemy_move[0];
 
@@ -1027,14 +1035,14 @@ function worst_movements(array $board, string $team)
 	$worst_movements 	= [];
 
 	foreach ($pieces_array[$team] as $cor_str => $piece) {
-		foreach ($piece['movements'] as $index => $cor) {
 
+		foreach ($piece['movements'] as $index => $cor) {
 			$movement_cor_str = cor_string($cor);
 			$square_name = $board['squares'][$movement_cor_str]['name'];
 			$attackers = [];
 			$defenders = [];
 
-			// get all the attackers and defernders for the new location
+            // get all the attackers and defenders for the new location
 			foreach ($pieces_array as $piece_team => $team_array) {
 				foreach ($team_array as $team_cor => $team_piece) {
 
@@ -1068,14 +1076,15 @@ function worst_movements(array $board, string $team)
 					continue;
 				}
 
-			} else if (get_value($square_name) >= $piece['value']) {
+			} else if (get_value($square_name) >= $piece['value'] && $piece['name'] != 'king') {
 				continue;
-			} else if (sizeof($defenders) >= sizeof($attackers)) {
+			} else if (sizeof($defenders) >= sizeof($attackers) && $piece['name'] != 'king') {
 				continue;
 			}
 
 			$worst_movements[$cor_str][$index] = $cor;
 		}
+
 	}
 	return $worst_movements;
 }
@@ -1098,7 +1107,6 @@ function best_movements(array $board, string $team, int $return_array_length)
 	$total_movements	= [];
 	$return_array       = [];
 	$opposite_team		= opposite_team($team);
-	$can_move           = false;
 
 	if (is_square_attacked($board, $team, $board[$team.'_king'])) {
 		$worst_movements = [];
@@ -1108,27 +1116,37 @@ function best_movements(array $board, string $team, int $return_array_length)
 		$in_check        = false;
 	}
 
-	// 
-	// filter the worst movements 
-	// 
+
 	foreach ($board['squares'] as $cor_str => $piece) {
-		if ($piece['name'] == '' || $piece['team'] != $team) {
+		if ($piece['name'] == '' || $piece['team'] != $team || sizeof($piece['movements']) == 0) {
 			continue;
 		}
-		if (isset($worst_movements[$cor_str])) {
-			foreach ($worst_movements[$cor_str] as $index => $cor) {
-				unset($piece['movements'][$index]);
-			}
-		}
-		$total_movements[$cor_str] = $piece['movements'];
-		if (sizeof($piece['movements']) > 0) {
-			$can_move = true;
-		}
+
+        $total_movements[$cor_str] = $piece['movements'];
 	}
 
-	if (!$can_move) {
+
+    //
+    // if no movements are possible
+    //
+    if (sizeof($total_movements) == 0) {
 		return $in_check ? 'checkmate' : 'stalemate';
-	}
+    }
+
+    // 
+	// filter the worst movements 
+	// 
+    if ($total_movements != $worst_movements) {
+        foreach ($total_movements as $cor_str => $movements_arr) {
+
+            if (isset($worst_movements[$cor_str])) {
+                foreach ($worst_movements[$cor_str] as $index => $cor) {
+                    unset($total_movements[$cor_str][$index]);
+                }
+            }
+    
+        }
+    }
 
 	// 
 	// order remaining movements by score

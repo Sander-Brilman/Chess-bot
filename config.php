@@ -1,9 +1,9 @@
 <?php
-$site_folder = '/php/website/subdomain_projects/chess/newFolders/versions/en/'; // Don't forget the '/' at the start & end 
-
 $debug_ips = [
 	'::1',
 ];
+
+$site_folder            = '/websites/Chess-bot/'; // Don't forget the '/' at the start & end 
 
 $theme_color            = '#00b3cd'; // css color notation
 $locate                 = 'en_US'; // language_TERRITORY format ('nl_NL' or 'en_US' for example)

@@ -46,7 +46,6 @@ function get_page_info(array $url_array = []): array
 	switch ($url_array[0]) {
         case 'welcome':
             $php[] = 'get_name';
-            $js[] = 'get_name';
             $css[] = 'get_name';
             $title = generate_title('Welcome stranger!', false);
             break;
@@ -65,6 +64,10 @@ function get_page_info(array $url_array = []): array
             $css[] = 'new_game';
             $title = generate_title('New game');
             $canonical_url = generate_canonical_url('new-game');
+            break;
+
+        case 'test':
+            $php[] = 'testing';
             break;
 
 		default:

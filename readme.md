@@ -1,6 +1,6 @@
 # Chess bot
 
-#### To play [click here](http://schaken.sanderbrilman.nl/versions/en/)
+#### To play [click here]()
 
 I made this project for fun wondering if i could make a chess bot from scratch not knowing a damn thing about how chess bots work.<br>
 
@@ -15,22 +15,10 @@ The languages i used are:
 - Jquery (for live updating)
 - HTML & CSS (for building the website itself)
 
-I used my self made [php website template](https://github.com/Sander-Brilman/php-website-template) to take care of the basics of the websites
+I used my own [php website template](https://github.com/Sander-Brilman/php-website-template) to take care of the basics of the websites
 
 
 For the icons i used FontAwsome
-
-## How to setup.
-
-To run this project use a webserver or a localhost like XAMMP.<br>
-Once you have done that you need to change the `config.php` file.
-
-inside the `config.php` file there is a variable called `$site_folder` on line 2. Set this value to the folder you setup the project in.<br>
-
-For example if you have a localhost setup and the url is `localhost/chess-bot-website/` set the variable to `/chess-bot-website/`.<br>
-```php
-$site_folder = '/chess-bot-website/';
-```
 
 
 ## Short history
@@ -47,6 +35,3 @@ All the previous verison use pure vanilla js only. To view the code you can use 
 
 You can view the previous versions [here](http://schaken.sanderbrilman.nl/index.php?version-select=true) (dutch only sorry)
 
-## **Code design**
-
-I designed the bot in a special way where its easy to adjust the way the bot rates states of the board. This can be found in the `board_score` function.

@@ -1,7 +1,7 @@
 // make a object containing coordinates from a string
-function makeCoordinatesObject(coordinatesSring) {
-	if (typeof coordinatesSring == "string") { 
-		let array = coordinatesSring.split("-");
+function makeCoordinatesObject(coordinatesString) {
+	if (typeof coordinatesString == "string") { 
+		let array = coordinatesString.split("-");
 		return {
 			x: parseInt(array[0]),
 			y: parseInt(array[1]),
@@ -10,7 +10,7 @@ function makeCoordinatesObject(coordinatesSring) {
 			}
 		}
 	}
-	return coordinatesSring;
+	return coordinatesString;
 }
 
 function pieceAnimation(from, to, special = true) {
@@ -74,36 +74,13 @@ function pieceAnimation(from, to, special = true) {
 	}, 500);
 }
 
-async function makeBoardInteractive() {
-	$(document).ready(function() {
+function move(from, to) {
+    makeBoardStatic();
 
-		const url = 'assets/php/total_movements.php';
-		$.post(url, {}, (data, status) => {
-			let piecesObject = JSON.parse(data);
+	pieceAnimation(from, to);
 
-			for (let pieceCor in piecesObject) {
-				let movements = piecesObject[pieceCor];
-				let square = $(`#${pieceCor}`);
-				square.on('click', () => {
-					resetSquares();
-
-					square.addClass('focus');
-					movements.forEach((square) => {
-						let pathSquare = $(`#${square}`);
-						pathSquare.addClass('path');
-						pathSquare.on('click', () => {
-							move(pieceCor, square);
-						})
-					});
-				})
-			}
-		})
-	})
-}
-
-async function move(from, to) {
-	const url = 'assets/php/calculate_move.php';
-	const postData = {
+	const url       = 'assets/php/calculate_move.php';
+	const postData  = {
 		from: from,
 		to:   to,
 	}
@@ -111,44 +88,30 @@ async function move(from, to) {
 	$.post(url, postData, function(data, state) {
 		botMove = JSON.parse(data);
 
+        // wait for animation to finish. then move piece
 		setTimeout(() => {
 
+            makeBoardStatic();
+
 			if (botMove['move'] != undefined) {
-				let from = createCor(botMove.move.from);
-				let to   = createCor(botMove.move.to);
-				resetSquares();
-				setTimeout(() => {
-					pieceAnimation(from.toString(), to.toString());
-				}, 450);
+				let from = createCor(botMove.move.from).toString();
+				let to   = createCor(botMove.move.to).toString();
+                pieceAnimation(from, to);
 			}
 
 			if (botMove.status == 'checkmate') {
 				showEndScreen(`${botMove.winner} won`);
+                return;
 			} else if (botMove.status == 'stalemate') {
 				showEndScreen(`Draw`);
-			} else {
-				makeBoardInteractive();
+                return;
 			}
+            
+            setTimeout(() => {
+                makeBoardInteractive();
+            }, 300)
 
-		}, 300);
-	});
-
-	resetSquares();
-	$('td').each(function() {
-		$(this).off();
-	});
-	pieceAnimation(from, to);
-}
-
-function resetSquares() {
-	$('.hint-from').removeClass("hint-from");
-	$('.move-from').removeClass('move-from');
-	$('.move-to').removeClass('move-to');
-	$('.hint-to').removeClass("hint-to");
-	$('.focus').removeClass('focus');
-	$('.path').each(function(){
-		$(this).removeClass('path');
-		$(this).off();
+		}, 600);
 	});
 }
 
@@ -171,6 +134,7 @@ function showEndScreen(text) {
 
 function reloadCapturedPieces() {
 	const teams = ['top', 'bottom'];
+
 	const piecesInTeam = {
 		pawn:  	8,
 		horse:  2,
@@ -179,6 +143,7 @@ function reloadCapturedPieces() {
 		queen:  1,
 		king:  	1,
 	};
+
 	const icons = {
 		tower: 	'<i class="fa-solid fa-chess-rook-piece"></i>',
 		horse: 	'<i class="fa-solid fa-chess-knight"></i>',
@@ -203,60 +168,109 @@ function reloadCapturedPieces() {
 	});
 }
 
-document.getElementById("hint").onclick = function() {
-	$(document).ready(function() {
-		const url = 'assets/php/hint.php';
-		const postData = {};
+$('#hint').click(function() {
+    const url = 'assets/php/hint.php';
+    const postData = {};
 
-		$.post(url, postData, function(data, state) {
-			hint = JSON.parse(data);
-			
-			$('#'+createCor(hint.from).toString()).addClass("hint-from");
-			$('#'+createCor(hint.to).toString()).addClass("hint-to");
-		});
-		$('.hint-from').removeClass("hint-from");
-		$('.hint-to').removeClass("hint-to");
-	})
+    $.post(url, postData, function(data, state) {
+        hint = JSON.parse(data);
+        
+        $('#'+createCor(hint.from).toString()).addClass("hint-from");
+        $('#'+createCor(hint.to).toString()).addClass("hint-to");
+    });
+    $('.hint-from').removeClass("hint-from");
+    $('.hint-to').removeClass("hint-to");
+})
+
+$('#undo').click(function() {
+    makeBoardStatic();
+
+    const url = 'assets/php/undo.php';
+    const postData = {};
+    $.post(url, postData, function(data, state) {
+
+        if (data == '') { return };
+
+        animationData   = JSON.parse(data);
+        let delay       = 100;
+
+        for (let animation in animationData) {
+            animation = animationData[animation];
+
+            setTimeout(() => {
+                $(`#${animation.from}`).html(animation.square_state.current);
+                pieceAnimation(animation.from, animation.to, false);
+
+                setTimeout(() => {
+                    $(`#${animation.from}`).append(animation.square_state.before);
+                }, 550);
+            }, delay);
+
+            delay += 600;
+        }
+
+        setTimeout(() => {
+            makeBoardInteractive();
+            reloadCapturedPieces();
+        }, delay);
+    });
+})
+
+function makeBoardStatic() {
+    $('button').attr('disabled', true);
+
+    $('.hint-from').removeClass("hint-from");
+	$('.move-from').removeClass('move-from');
+
+	$('.move-to').removeClass('move-to');
+	$('.hint-to').removeClass("hint-to");
+
+	$('.focus').removeClass('focus');
+
+    $('td').each(function(){
+		$(this).off();
+		$(this).removeClass('path');
+	});
 }
 
-document.getElementById("undo").onclick = function() {
-    $('#undo').attr('disabled', true);
-	$(document).ready(function() {
-		const url = 'assets/php/undo.php';
-		const postData = {};
+function makeBoardInteractive() {
+    $.post('assets/php/total_movements.php', {}, (data, status) => {
+        let piecesMovements = JSON.parse(data);
 
-		$.post(url, postData, function(data, state) {
+        for (let pieceCor in piecesMovements) {
 
-			if (data == '')  return;
+            let movements = piecesMovements[pieceCor];
+            let square = $(`#${pieceCor}`);
 
-			animationData   = JSON.parse(data);
-			let delay       = 100;
+            square.click(function() {
 
-			for (let animation in animationData) {
-				animation = animationData[animation];
+                //
+                // remove existing focus & path
+                //
+                $('.focus').removeClass('focus');
+                $('.path').each(function() {
+		            $(this).removeClass('path');
+                    $(this).off();
+                })
 
-				setTimeout(() => {
-					$(`#${animation.from}`).html(animation.square_state.current);
-					pieceAnimation(animation.from, animation.to, false);
+                //
+                // set new events
+                //
 
-					setTimeout(() => {
-						$(`#${animation.from}`).append(animation.square_state.before);
-					}, 550);
-				}, delay);
+                square.addClass('focus');
+                movements.forEach(squareCoordinates => {
+                    let pathSquare = $(`#${squareCoordinates}`);
 
-				delay += 600;
-			}
+                    pathSquare.addClass('path');
+                    pathSquare.click(function() { move(pieceCor, squareCoordinates); })
+                });
+                
+            })
+        }// for
 
-			setTimeout(() => {
-				resetSquares();
-				makeBoardInteractive();
-				reloadCapturedPieces();
-
-                $('#undo').attr('disabled', false);
-			}, delay);
-		});
-		resetSquares();
-	})
+        $('button').attr('disabled', false);
+    })// post
 }
+
 
 makeBoardInteractive();

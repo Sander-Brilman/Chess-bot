@@ -131,7 +131,6 @@ if (!$_SESSION['game_data']['begins']) {
 
     $move = calculate_move($board, 'top')['move'];
 
-    $_SESSION['game_data']['board'] = $board;
     $_SESSION['game_data']['begins'] = true;
 
     $from   = cor_string($move['from']);
@@ -151,7 +150,9 @@ if (!$_SESSION['game_data']['begins']) {
         'castling' => check_castling($board, $move['from'], $move['to']),
     ];
 
-    move_piece($_SESSION['game_data']['board'], $move['from'], $move['to']);
+    move_piece($board, $move['from'], $move['to']);
+
+    $_SESSION['game_data']['board'] = $board;
     ?>
     <script>
         setTimeout(() => {

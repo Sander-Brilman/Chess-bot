@@ -374,16 +374,6 @@ tr:nth-child(even)>td:nth-child(even) {	background-color: var(--square-color-2);
         font-size: 34px;
     }
 
-    .path,
-    .move-to,
-    .move-from  {
-        border: none;
-        outline-style: solid;
-        outline-color: #ff7171;
-        outline-offset: -6px;
-        outline-width: 4px;
-    }
-
     .focus {
         border: none;
         outline-style: double;
@@ -407,6 +397,19 @@ tr:nth-child(even)>td:nth-child(even) {	background-color: var(--square-color-2);
         outline-style: double;
         outline-offset: -6px;
         outline-width: 5px;
+    }
+
+    .path,
+    .move-to,
+    .move-from  {
+        border: none;
+        outline-offset: -6px;
+        outline-width: 4px;
+    }
+
+    .path {
+        outline-color: #ff7171;
+        outline-style: solid;
     }
 }
 

@@ -74,4 +74,9 @@ function dump($data, bool $ip_check = true): void
     </div>
     <?php
 }
+
+function from_to($move)
+{
+    return cor_string($move['from']) . ' -> '. cor_string($move['to']);
+}
 ?>
