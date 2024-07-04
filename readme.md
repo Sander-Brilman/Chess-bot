@@ -33,5 +33,5 @@ This latest version is the first to process the moves on the backend and live up
 All the previous verison use pure vanilla js only. To view the code you can use the dev tools.
 <br>
 
-You can view the previous versions [here]([http://schaken.sanderbrilman.nl/](https://www.sanderbrilman.nl/project/schaken/index.php?version-select=true) (dutch only sorry)
+You can view the previous versions [here](https://www.sanderbrilman.nl/project/schaken/index.php?version-select=true) (dutch only sorry)
 
