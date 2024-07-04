@@ -1,6 +1,6 @@
 # Chess bot
 
-#### To play [click here]()
+#### To play [click here](https://www.sanderbrilman.nl/project/schaken/versions/en/)
 
 I made this project for fun wondering if i could make a chess bot from scratch not knowing a damn thing about how chess bots work.<br>
 
@@ -33,5 +33,5 @@ This latest version is the first to process the moves on the backend and live up
 All the previous verison use pure vanilla js only. To view the code you can use the dev tools.
 <br>
 
-You can view the previous versions [here](http://schaken.sanderbrilman.nl/index.php?version-select=true) (dutch only sorry)
+You can view the previous versions [here]([http://schaken.sanderbrilman.nl/](https://www.sanderbrilman.nl/project/schaken/index.php?version-select=true) (dutch only sorry)
 
