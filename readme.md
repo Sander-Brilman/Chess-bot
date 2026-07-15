@@ -1,6 +1,6 @@
 # Chess bot
 
-#### To play [click here](https://www.sanderbrilman.nl/project/schaken/versions/en/)
+#### To play [click here](https://www.sanderbrilman.nl/project/schaken/versions/v3/)
 
 I made this project for fun wondering if i could make a chess bot from scratch not knowing a damn thing about how chess bots work.<br>
 
